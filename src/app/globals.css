@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: #0A0A0F;
+  --color-foreground: #E8E8F0;
+  --color-card: #12121A;
+  --color-card-hover: #1A1A2E;
+  --color-border: #2A2A3E;
+  --color-neon-green: #39FF14;
+  --color-neon-yellow: #FFE600;
+  --color-neon-orange: #FF6B00;
+  --color-neon-red: #FF073A;
+  --color-neon-blue: #00D4FF;
+  --color-neon-purple: #BF00FF;
+  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2A3E;
+  border-radius: 2px;
+}
+
+/* Horizontal scroll snap for calendar */
+.calendar-scroll {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.calendar-scroll > * {
+  scroll-snap-align: center;
+}
+
+/* Neon glow effects */
+.glow-green {
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.3), 0 0 20px rgba(57, 255, 20, 0.1);
+}
+
+.glow-blue {
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3), 0 0 20px rgba(0, 212, 255, 0.1);
+}
+
+.glow-purple {
+  box-shadow: 0 0 10px rgba(191, 0, 255, 0.3), 0 0 20px rgba(191, 0, 255, 0.1);
+}
+
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
 }

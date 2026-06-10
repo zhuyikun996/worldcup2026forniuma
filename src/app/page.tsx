@@ -1,65 +1,102 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect } from "react";
+import Header from "@/components/Header";
+import CalendarStrip from "@/components/CalendarStrip";
+import DayGuide from "@/components/DayGuide";
+import FollowedTeamsBar from "@/components/FollowedTeamsBar";
+import ShareCard from "@/components/ShareCard";
+import { getDaySchedules } from "@/lib/schedule-utils";
+import { getTodayBeijing } from "@/lib/time-utils";
+import { getPreferences, toggleFollowTeam, savePreferences } from "@/lib/storage";
+import { DaySchedule } from "@/lib/types";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+  const [schedules, setSchedules] = useState<DaySchedule[]>([]);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [followedTeams, setFollowedTeams] = useState<string[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const allSchedules = getDaySchedules();
+    setSchedules(allSchedules);
+
+    const today = getTodayBeijing();
+    const hasTodayMatch = allSchedules.find((s) => s.date === today);
+    if (hasTodayMatch) {
+      setSelectedDate(today);
+    } else {
+      const future = allSchedules.find((s) => s.date >= today);
+      setSelectedDate(future ? future.date : allSchedules[0]?.date || "");
+    }
+
+    const prefs = getPreferences();
+    setFollowedTeams(prefs.followedTeams);
+    setMounted(true);
+  }, []);
+
+  const handleToggleFollow = (teamName: string) => {
+    const prefs = toggleFollowTeam(teamName);
+    setFollowedTeams([...prefs.followedTeams]);
+  };
+
+  const handleRemoveFollow = (teamName: string) => {
+    const prefs = getPreferences();
+    prefs.followedTeams = prefs.followedTeams.filter((t) => t !== teamName);
+    savePreferences(prefs);
+    setFollowedTeams([...prefs.followedTeams]);
+  };
+
+  if (!mounted) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <div className="text-neon-blue text-lg">⚽ 加载中...</div>
       </main>
-    </div>
+    );
+  }
+
+  const currentSchedule = schedules.find((s) => s.date === selectedDate);
+
+  return (
+    <main className="min-h-screen flex flex-col">
+      <Header />
+
+      {/* Calendar */}
+      <div className="border-b border-border">
+        <CalendarStrip
+          schedules={schedules}
+          selectedDate={selectedDate}
+          onSelectDate={setSelectedDate}
+        />
+      </div>
+
+      {/* Followed teams */}
+      <FollowedTeamsBar
+        followedTeams={followedTeams}
+        onRemove={handleRemoveFollow}
+      />
+
+      {/* Day guide */}
+      <div className="flex-1 max-w-2xl mx-auto w-full px-4 py-4 pb-24">
+        {currentSchedule ? (
+          <>
+            <DayGuide
+              schedule={currentSchedule}
+              followedTeams={followedTeams}
+              onToggleFollow={handleToggleFollow}
+            />
+            <ShareCard schedule={currentSchedule} />
+          </>
+        ) : (
+          <div className="text-center py-20">
+            <div className="text-4xl mb-4">⚽</div>
+            <p className="text-foreground/50">这一天没有比赛</p>
+            <p className="text-sm text-foreground/30 mt-2">
+              2026世界杯赛程：6月12日 - 7月20日（北京时间）
+            </p>
+          </div>
+        )}
+      </div>
+    </main>
   );
 }
