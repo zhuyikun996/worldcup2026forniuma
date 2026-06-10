@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+> 注意：请将本地 git 用户名修改为与 GitHub 用户名一致。
+
 ## Getting Started
 
 First, run the development server:
