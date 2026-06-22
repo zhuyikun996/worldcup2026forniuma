@@ -4,6 +4,7 @@ import { Match } from "./types";
 // Times are in UTC (confirmed by cross-referencing FIFA and ESPN)
 export const matches: Match[] = [
   // ==================== Group Stage - Matchday 1 ====================
+  // Results updated 2026-06-22 from ESPN
   {
     id: 1,
     stage: "group",
@@ -12,6 +13,9 @@ export const matches: Match[] = [
     team2: { name: "南非", code: "RSA" },
     group: "A",
     venue: "墨西哥城",
+    score1: 2,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 2,
@@ -21,6 +25,9 @@ export const matches: Match[] = [
     team2: { name: "捷克", code: "CZE" },
     group: "A",
     venue: "瓜达拉哈拉",
+    score1: 2,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 3,
@@ -30,6 +37,9 @@ export const matches: Match[] = [
     team2: { name: "波黑", code: "BIH" },
     group: "B",
     venue: "多伦多",
+    score1: 1,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 4,
@@ -39,6 +49,9 @@ export const matches: Match[] = [
     team2: { name: "巴拉圭", code: "PAR" },
     group: "D",
     venue: "洛杉矶",
+    score1: 4,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 5,
@@ -48,6 +61,9 @@ export const matches: Match[] = [
     team2: { name: "瑞士", code: "SUI" },
     group: "B",
     venue: "旧金山",
+    score1: 1,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 6,
@@ -57,6 +73,9 @@ export const matches: Match[] = [
     team2: { name: "摩洛哥", code: "MAR" },
     group: "C",
     venue: "纽约/新泽西",
+    score1: 1,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 7,
@@ -66,6 +85,9 @@ export const matches: Match[] = [
     team2: { name: "苏格兰", code: "SCO" },
     group: "C",
     venue: "波士顿",
+    score1: 0,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 8,
@@ -75,6 +97,9 @@ export const matches: Match[] = [
     team2: { name: "土耳其", code: "TUR" },
     group: "D",
     venue: "温哥华",
+    score1: 2,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 9,
@@ -84,6 +109,9 @@ export const matches: Match[] = [
     team2: { name: "库拉索", code: "CUW" },
     group: "E",
     venue: "休斯顿",
+    score1: 7,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 10,
@@ -93,6 +121,9 @@ export const matches: Match[] = [
     team2: { name: "日本", code: "JPN" },
     group: "F",
     venue: "达拉斯",
+    score1: 2,
+    score2: 2,
+    status: "finished",
   },
   {
     id: 11,
@@ -102,6 +133,9 @@ export const matches: Match[] = [
     team2: { name: "厄瓜多尔", code: "ECU" },
     group: "E",
     venue: "费城",
+    score1: 1,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 12,
@@ -111,6 +145,9 @@ export const matches: Match[] = [
     team2: { name: "突尼斯", code: "TUN" },
     group: "F",
     venue: "蒙特雷",
+    score1: 5,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 13,
@@ -120,6 +157,9 @@ export const matches: Match[] = [
     team2: { name: "佛得角", code: "CPV" },
     group: "H",
     venue: "亚特兰大",
+    score1: 0,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 14,
@@ -129,6 +169,9 @@ export const matches: Match[] = [
     team2: { name: "埃及", code: "EGY" },
     group: "G",
     venue: "西雅图",
+    score1: 1,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 15,
@@ -138,6 +181,9 @@ export const matches: Match[] = [
     team2: { name: "乌拉圭", code: "URU" },
     group: "H",
     venue: "迈阿密",
+    score1: 1,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 16,
@@ -147,6 +193,9 @@ export const matches: Match[] = [
     team2: { name: "新西兰", code: "NZL" },
     group: "G",
     venue: "洛杉矶",
+    score1: 2,
+    score2: 2,
+    status: "finished",
   },
   {
     id: 17,
@@ -156,6 +205,9 @@ export const matches: Match[] = [
     team2: { name: "塞内加尔", code: "SEN" },
     group: "I",
     venue: "纽约/新泽西",
+    score1: 3,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 18,
@@ -165,6 +217,9 @@ export const matches: Match[] = [
     team2: { name: "挪威", code: "NOR" },
     group: "I",
     venue: "波士顿",
+    score1: 1,
+    score2: 4,
+    status: "finished",
   },
   {
     id: 19,
@@ -174,6 +229,9 @@ export const matches: Match[] = [
     team2: { name: "阿尔及利亚", code: "ALG" },
     group: "J",
     venue: "堪萨斯城",
+    score1: 3,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 20,
@@ -183,6 +241,9 @@ export const matches: Match[] = [
     team2: { name: "约旦", code: "JOR" },
     group: "J",
     venue: "旧金山",
+    score1: 3,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 21,
@@ -192,6 +253,9 @@ export const matches: Match[] = [
     team2: { name: "刚果(金)", code: "COD" },
     group: "K",
     venue: "休斯顿",
+    score1: 1,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 22,
@@ -201,6 +265,9 @@ export const matches: Match[] = [
     team2: { name: "克罗地亚", code: "CRO" },
     group: "L",
     venue: "达拉斯",
+    score1: 4,
+    score2: 2,
+    status: "finished",
   },
   {
     id: 23,
@@ -210,9 +277,13 @@ export const matches: Match[] = [
     team2: { name: "巴拿马", code: "PAN" },
     group: "L",
     venue: "多伦多",
+    score1: 1,
+    score2: 0,
+    status: "finished",
   },
 
   // ==================== Group Stage - Matchday 2 ====================
+  // Results updated 2026-06-22 from ESPN
   {
     id: 24,
     stage: "group",
@@ -221,6 +292,9 @@ export const matches: Match[] = [
     team2: { name: "哥伦比亚", code: "COL" },
     group: "K",
     venue: "墨西哥城",
+    score1: 1,
+    score2: 3,
+    status: "finished",
   },
   {
     id: 25,
@@ -230,6 +304,9 @@ export const matches: Match[] = [
     team2: { name: "南非", code: "RSA" },
     group: "A",
     venue: "亚特兰大",
+    score1: 1,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 26,
@@ -239,6 +316,9 @@ export const matches: Match[] = [
     team2: { name: "波黑", code: "BIH" },
     group: "B",
     venue: "洛杉矶",
+    score1: 4,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 27,
@@ -248,6 +328,9 @@ export const matches: Match[] = [
     team2: { name: "卡塔尔", code: "QAT" },
     group: "B",
     venue: "温哥华",
+    score1: 6,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 28,
@@ -257,6 +340,9 @@ export const matches: Match[] = [
     team2: { name: "韩国", code: "KOR" },
     group: "A",
     venue: "瓜达拉哈拉",
+    score1: 1,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 29,
@@ -266,6 +352,9 @@ export const matches: Match[] = [
     team2: { name: "澳大利亚", code: "AUS" },
     group: "D",
     venue: "西雅图",
+    score1: 2,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 30,
@@ -275,6 +364,9 @@ export const matches: Match[] = [
     team2: { name: "摩洛哥", code: "MAR" },
     group: "C",
     venue: "波士顿",
+    score1: 0,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 31,
@@ -284,6 +376,9 @@ export const matches: Match[] = [
     team2: { name: "海地", code: "HAI" },
     group: "C",
     venue: "费城",
+    score1: 3,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 32,
@@ -293,6 +388,9 @@ export const matches: Match[] = [
     team2: { name: "巴拉圭", code: "PAR" },
     group: "D",
     venue: "旧金山",
+    score1: 0,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 33,
@@ -302,6 +400,9 @@ export const matches: Match[] = [
     team2: { name: "瑞典", code: "SWE" },
     group: "F",
     venue: "休斯顿",
+    score1: 5,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 34,
@@ -311,6 +412,9 @@ export const matches: Match[] = [
     team2: { name: "科特迪瓦", code: "CIV" },
     group: "E",
     venue: "多伦多",
+    score1: 2,
+    score2: 1,
+    status: "finished",
   },
   {
     id: 35,
@@ -320,6 +424,9 @@ export const matches: Match[] = [
     team2: { name: "库拉索", code: "CUW" },
     group: "E",
     venue: "堪萨斯城",
+    score1: 0,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 36,
@@ -329,6 +436,9 @@ export const matches: Match[] = [
     team2: { name: "日本", code: "JPN" },
     group: "F",
     venue: "蒙特雷",
+    score1: 0,
+    score2: 4,
+    status: "finished",
   },
   {
     id: 37,
@@ -338,6 +448,9 @@ export const matches: Match[] = [
     team2: { name: "沙特阿拉伯", code: "KSA" },
     group: "H",
     venue: "亚特兰大",
+    score1: 4,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 38,
@@ -347,6 +460,9 @@ export const matches: Match[] = [
     team2: { name: "伊朗", code: "IRN" },
     group: "G",
     venue: "洛杉矶",
+    score1: 0,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 39,
@@ -356,6 +472,9 @@ export const matches: Match[] = [
     team2: { name: "佛得角", code: "CPV" },
     group: "H",
     venue: "迈阿密",
+    score1: 2,
+    score2: 2,
+    status: "finished",
   },
   {
     id: 40,
@@ -365,6 +484,9 @@ export const matches: Match[] = [
     team2: { name: "埃及", code: "EGY" },
     group: "G",
     venue: "温哥华",
+    score1: 1,
+    score2: 3,
+    status: "finished",
   },
   {
     id: 41,

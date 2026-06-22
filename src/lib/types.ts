@@ -21,6 +21,9 @@ export interface Match {
   team2: TeamInfo;
   group?: string;
   venue: string;
+  score1?: number;
+  score2?: number;
+  status?: "scheduled" | "finished";
 }
 
 export type ViewingSlot =
