@@ -496,6 +496,9 @@ export const matches: Match[] = [
     team2: { name: "奥地利", code: "AUT" },
     group: "J",
     venue: "达拉斯",
+    score1: 2,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 42,
@@ -505,6 +508,9 @@ export const matches: Match[] = [
     team2: { name: "伊拉克", code: "IRQ" },
     group: "I",
     venue: "费城",
+    score1: 3,
+    score2: 0,
+    status: "finished",
   },
   {
     id: 43,
@@ -514,6 +520,9 @@ export const matches: Match[] = [
     team2: { name: "塞内加尔", code: "SEN" },
     group: "I",
     venue: "纽约/新泽西",
+    score1: 3,
+    score2: 2,
+    status: "finished",
   },
   {
     id: 44,
@@ -523,6 +532,9 @@ export const matches: Match[] = [
     team2: { name: "阿尔及利亚", code: "ALG" },
     group: "J",
     venue: "旧金山",
+    score1: 1,
+    score2: 2,
+    status: "finished",
   },
   {
     id: 45,
