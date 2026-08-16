@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英国十日 · 行程手账</title>
+<style>
+  :root {
+    --ink: #23282e;
+    --muted: #7a7f87;
+    --line: #e6e0d3;
+    --paper: #faf6ee;
+    --card: #fffdf8;
+
+    --c-man: #b3122f; --c-man-bg: #fbeef0;
+    --c-liv: #0b7285; --c-liv-bg: #ecf5f7;
+    --c-oxf: #2f3b8f; --c-oxf-bg: #eef0fa;
+    --c-ldn: #9a6b0b; --c-ldn-bg: #faf3e2;
+
+    --serif: Georgia, "Times New Roman", "Songti SC", "STSong", "SimSun", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
+    color: var(--ink);
+    background:
+      linear-gradient(180deg, rgba(179,18,47,.04), rgba(179,18,47,0) 220px),
+      var(--paper);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 22px 70px; }
+
+  /* ---------- Hero ---------- */
+  .hero { text-align: center; padding: 64px 0 36px; }
+  .tricolor {
+    width: 72px; height: 5px; margin: 0 auto 26px; border-radius: 3px;
+    background: linear-gradient(90deg, #012169 0 40%, #fff 40% 60%, #c8102e 60% 100%);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+  }
+  .eyebrow {
+    font-size: 12px; letter-spacing: .42em; text-indent: .42em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 14px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(40px, 8vw, 64px); letter-spacing: .12em; text-indent: .12em;
+  }
+  .hero-dates {
+    font-family: var(--serif); color: var(--muted);
+    font-size: 15px; letter-spacing: .08em; margin-top: 10px;
+  }
+  .countdown {
+    display: inline-block; margin-top: 18px; padding: 5px 18px;
+    border: 1px solid var(--line); border-radius: 999px;
+    background: #fff; font-size: 13px; color: var(--c-man); letter-spacing: .05em;
+  }
+
+  /* route chain */
+  .route {
+    margin-top: 30px; display: flex; flex-wrap: wrap; justify-content: center;
+    align-items: center; gap: 8px 10px;
+  }
+  .route-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 14px; border-radius: 999px; font-size: 14px;
+    background: #fff; border: 1px solid var(--line); white-space: nowrap;
+  }
+  .route-chip .nights { font-size: 12px; color: var(--muted); }
+  .route-chip.is-man { color: var(--c-man); border-color: #ecc7cd; background: var(--c-man-bg); }
+  .route-chip.is-liv { color: var(--c-liv); border-color: #bcdde3; background: var(--c-liv-bg); }
+  .route-chip.is-oxf { color: var(--c-oxf); border-color: #c6cbec; background: var(--c-oxf-bg); }
+  .route-chip.is-ldn { color: var(--c-ldn); border-color: #e6d4a6; background: var(--c-ldn-bg); }
+  .route-chip.is-plain { color: var(--muted); font-size: 13px; }
+  .route-sep { color: #b8b2a4; font-size: 15px; }
+
+  /* stats */
+  .stats { margin: 34px auto 0; display: flex; justify-content: center; gap: clamp(28px, 8vw, 72px); }
+  .stat { text-align: center; }
+  .stat b {
+    display: block; font-family: var(--serif); font-weight: 600;
+    font-size: 34px; line-height: 1.15;
+  }
+  .stat span { font-size: 12.5px; color: var(--muted); letter-spacing: .18em; text-indent: .18em; }
+
+  /* ---------- Section title ---------- */
+  .sec-title {
+    display: flex; align-items: baseline; gap: 14px;
+    margin: 56px 0 26px; font-family: var(--serif);
+  }
+  .sec-title h2 { font-size: 22px; font-weight: 600; letter-spacing: .14em; }
+  .sec-title small { font-size: 11px; color: var(--muted); letter-spacing: .3em; text-transform: uppercase; }
+  .sec-title::after { content: ""; flex: 1; height: 1px; background: var(--line); align-self: center; }
+
+  /* ---------- Timeline ---------- */
+  .timeline { position: relative; }
+  .day {
+    display: grid; grid-template-columns: 84px 34px 1fr; gap: 0 6px;
+    margin-bottom: 18px;
+  }
+  .day-date { text-align: right; padding-top: 16px; }
+  .day-date .dnum {
+    display: block; font-family: var(--serif); font-size: 30px;
+    font-weight: 600; line-height: 1.05;
+  }
+  .day-date .dmonth { font-size: 12px; color: var(--muted); letter-spacing: .1em; }
+  .day-date .dweek { display: block; font-size: 12px; color: var(--muted); }
+
+  .day-rail { position: relative; }
+  .day-rail::before {
+    content: ""; position: absolute; left: 50%; top: 0; bottom: -18px;
+    width: 2px; transform: translateX(-50%); background: var(--line);
+  }
+  .day:last-of-type .day-rail::before { bottom: auto; height: 22px; }
+  .day-rail .dot {
+    position: absolute; left: 50%; top: 22px; transform: translateX(-50%);
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--dot, var(--muted)); border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1.5px var(--dot, var(--muted));
+  }
+
+  .day-card {
+    position: relative; background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 16px 20px 14px;
+    box-shadow: 0 1px 3px rgba(60,50,20,.05);
+    transition: opacity .25s ease;
+  }
+  .day-card::before {
+    content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px;
+    width: 4px; border-radius: 4px; background: var(--dot, var(--line));
+  }
+  .day-head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; }
+  .day-tag {
+    font-family: var(--serif); font-size: 12px; letter-spacing: .18em;
+    color: var(--muted);
+  }
+  .city-chip {
+    font-size: 14px; font-weight: 600; padding: 2px 12px; border-radius: 999px;
+    color: var(--dot); background: color-mix(in srgb, var(--dot) 9%, white);
+  }
+  @supports not (color: color-mix(in srgb, red 10%, white)) {
+    .city-chip { background: var(--chip-bg, #f1ede2); }
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 12px; padding: 2px 10px; border-radius: 999px;
+    border: 1px dashed #c9c2b0; color: var(--muted); background: #fff;
+  }
+  .badge svg { width: 13px; height: 13px; }
+  .badge.b-arrive { color: var(--c-man); border-color: #ecc7cd; }
+  .badge.b-train  { color: var(--c-oxf); border-color: #c6cbec; }
+  .badge.b-fly    { color: var(--c-ldn); border-color: #e6d4a6; }
+  .badge b { font-weight: 600; }
+
+  .day-desc { margin-top: 9px; font-size: 15px; }
+  .transit {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+    margin-top: 10px; padding: 9px 14px; border-radius: 10px;
+    background: #f6f2e9; border: 1px solid var(--line);
+  }
+  .transit .leg { font-weight: 600; font-size: 15px; }
+  .transit .leg small { display: block; font-weight: 400; font-size: 11.5px; color: var(--muted); }
+  .transit .t-arrow {
+    flex: 1; min-width: 46px; height: 1px; position: relative;
+    background: repeating-linear-gradient(90deg, #b8b2a4 0 7px, transparent 7px 13px);
+  }
+  .transit .t-arrow svg {
+    position: absolute; right: -4px; top: 50%; transform: translateY(-50%);
+    width: 15px; height: 15px; color: #b8b2a4;
+  }
+  .fly-time { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--c-ldn); }
+  .t-meta {
+    display: flex; flex-wrap: wrap; gap: 5px 16px; align-items: center;
+    margin-top: 8px; font-size: 12.5px; color: var(--muted);
+  }
+  .t-meta a {
+    color: var(--c-oxf); text-decoration: none;
+    border-bottom: 1px dashed currentColor;
+  }
+
+  /* ---------- Transport table ---------- */
+  .t-scroll { overflow-x: auto; border-radius: 12px; border: 1px solid var(--line); }
+  .t-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    background: var(--card); font-size: 14px; min-width: 560px;
+  }
+  .t-table th {
+    background: #f4efe3; text-align: left; padding: 10px 14px;
+    font-size: 12px; color: var(--muted); letter-spacing: .08em; font-weight: 600;
+  }
+  .t-table td { padding: 11px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+  .t-table .tt {
+    font-family: var(--serif); font-weight: 600; white-space: nowrap;
+  }
+  .t-table .route-cell b { font-weight: 600; }
+  .t-table .route-cell .arr { color: #b8b2a4; padding: 0 5px; }
+  .t-table .note { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .day-stay {
+    display: inline-flex; align-items: center; gap: 7px;
+    margin-top: 11px; font-size: 13px; color: var(--muted);
+  }
+  .day-stay svg { width: 14px; height: 14px; }
+  .day-stay b { color: var(--ink); font-weight: 600; }
+
+  .check {
+    margin-left: auto; width: 26px; height: 26px; border-radius: 50%;
+    border: 1.5px solid #cfc8b8; background: #fff; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: transparent; transition: all .2s ease; flex-shrink: 0;
+  }
+  .check:hover { border-color: var(--c-man); }
+  .check svg { width: 14px; height: 14px; }
+  .day.done .day-card { opacity: .5; }
+  .day.done .day-desc, .day.done .city-chip { text-decoration: line-through; text-decoration-color: rgba(0,0,0,.35); }
+  .day.done .check { background: var(--c-man); border-color: var(--c-man); color: #fff; }
+
+  .hint { text-align: center; font-size: 12.5px; color: #b0aa9c; margin-top: -4px; }
+
+  /* ---------- Lodging ---------- */
+  .lodging { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .lodge-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .lodge-card h3 { font-size: 16px; display: flex; align-items: center; gap: 8px; }
+  .lodge-card h3 .swatch { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .lodge-card p { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .lodge-card .nn { font-family: var(--serif); font-size: 26px; font-weight: 600; margin-top: 6px; }
+  .lodge-card .nn small { font-size: 13px; font-weight: 400; color: var(--muted); }
+
+  footer {
+    margin-top: 64px; text-align: center; color: var(--muted); font-size: 12.5px;
+  }
+  footer .tricolor { margin-bottom: 18px; }
+  footer button {
+    background: none; border: none; color: var(--muted); font-size: 12.5px;
+    text-decoration: underline; cursor: pointer; margin-top: 6px;
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 640px) {
+    .day { grid-template-columns: 26px 1fr; }
+    .day-date {
+      grid-column: 2; grid-row: 1; text-align: left; padding: 14px 0 0;
+      display: flex; align-items: baseline; gap: 8px; order: -1;
+    }
+    .day-date .dnum { font-size: 22px; display: inline; }
+    .day-rail { grid-row: 1 / span 2; }
+    .day-rail .dot { top: 18px; }
+    .day-card { grid-column: 2; }
+  }
+
+  /* ---------- Print ---------- */
+  @media print {
+    body { background: #fff; }
+    .check, .hint, footer button, .countdown { display: none; }
+    .day-card { box-shadow: none; break-inside: avoid; }
+    .wrap { padding-bottom: 0; }
+  }
+</style>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9.5 12 2l9 7.5V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z M9 22V12h6v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-train" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 10.5h14M9.5 5.5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M8.5 21.5 11 16.5M15.5 21.5 13 16.5M5 21.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arr" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="tricolor"></div>
+    <p class="eyebrow">Manchester · Liverpool · Oxford · London</p>
+    <h1>英国十日</h1>
+    <p class="hero-dates">2026 年 8 月 23 日 — 9 月 1 日</p>
+    <p class="countdown" id="countdown"></p>
+
+    <div class="route">
+      <span class="route-chip is-plain" style="gap:5px">
+        <svg width="13" height="13"><use href="#i-send"/></svg>抵达
+      </span>
+      <span class="route-sep">→</span>
+      <span class="route-chip is-man">曼彻斯特 <span class="nights">2 晚</span></span>
+      <span class="route-sep">→</span>
+      <span class="route-chip is-liv">利物浦 <span class="nights">2 晚</span></span>
+      <span class="route-sep">→</span>
+      <span class="route-chip is-oxf">牛津 <span class="nights">1 晚</span></span>
+      <span class="route-sep">→</span>
+      <span class="route-chip is-ldn">伦敦 <span class="nights">4 晚</span></span>
+      <span class="route-sep">→</span>
+      <span class="route-chip is-plain" style="gap:5px">
+        <svg width="13" height="13"><use href="#i-send"/></svg>回国
+      </span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>10</b><span>天</span></div>
+      <div class="stat"><b>4</b><span>座城市</span></div>
+      <div class="stat"><b>9</b><span>晚</span></div>
+    </div>
+  </header>
+
+  <div class="sec-title"><h2>每日行程</h2><small>Itinerary</small></div>
+
+  <section class="timeline" id="timeline">
+
+    <article class="day" data-key="d1" style="--dot:var(--c-man);--chip-bg:var(--c-man-bg)">
+      <div class="day-date"><span class="dnum">23</span><span class="dmonth">8 月</span><span class="dweek">周日</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 1</span>
+          <span class="city-chip">曼彻斯特</span>
+          <span class="badge b-arrive"><svg><use href="#i-send"/></svg>06:45 抵达</span>
+          <span class="badge b-train"><svg><use href="#i-train"/></svg>火车</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <p class="day-desc">06:45 抵达曼彻斯特，入关后乘火车进市区，寄存行李后游览曼彻斯特</p>
+        <div class="transit">
+          <span class="leg">Manchester Airport<small>09:05 发车</small></span>
+          <span class="t-arrow"><svg><use href="#i-arr"/></svg></span>
+          <span class="leg">Manchester Piccadilly<small>09:22 到达</small></span>
+        </div>
+        <div class="t-meta">
+          <span>🚶 步行 6 分钟至酒店</span>
+          <a href="https://maps.app.goo.gl/WdBgAnyBcbZDhRTCA">机场 → 酒店 地图</a>
+        </div>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>曼城中心智选假日酒店</b></div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d2" style="--dot:var(--c-man);--chip-bg:var(--c-man-bg)">
+      <div class="day-date"><span class="dnum">24</span><span class="dmonth">8 月</span><span class="dweek">周一</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 2</span>
+          <span class="city-chip">曼彻斯特</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <p class="day-desc">全天游览曼彻斯特</p>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>曼城中心智选假日酒店</b></div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d3" style="--dot:var(--c-liv);--chip-bg:var(--c-liv-bg)">
+      <div class="day-date"><span class="dnum">25</span><span class="dmonth">8 月</span><span class="dweek">周二</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 3</span>
+          <span class="city-chip">利物浦</span>
+          <span class="badge b-train"><svg><use href="#i-train"/></svg>火车</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <div class="transit">
+          <span class="leg">Manchester Piccadilly<small>12:54 发车</small></span>
+          <span class="t-arrow"><svg><use href="#i-arr"/></svg></span>
+          <span class="leg">Liverpool Lime Street<small>13:53 到达</small></span>
+        </div>
+        <div class="t-meta">
+          <span>车程约 1 小时</span>
+          <span>🚶 步行 13 分钟至酒店</span>
+          <a href="https://maps.app.goo.gl/htb5GtF8bnchTuDeA">酒店 → 酒店 地图</a>
+        </div>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>The Halyard Liverpool</b></div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d4" style="--dot:var(--c-liv);--chip-bg:var(--c-liv-bg)">
+      <div class="day-date"><span class="dnum">26</span><span class="dmonth">8 月</span><span class="dweek">周三</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 4</span>
+          <span class="city-chip">利物浦</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <p class="day-desc">全天游览利物浦</p>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>The Halyard Liverpool</b></div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d5" style="--dot:var(--c-oxf);--chip-bg:var(--c-oxf-bg)">
+      <div class="day-date"><span class="dnum">27</span><span class="dmonth">8 月</span><span class="dweek">周四</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 5</span>
+          <span class="city-chip">牛津</span>
+          <span class="badge b-train"><svg><use href="#i-train"/></svg>火车</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <div class="transit">
+          <span class="leg">Liverpool Lime Street<small>11:33 发车</small></span>
+          <span class="t-arrow"><svg><use href="#i-arr"/></svg></span>
+          <span class="leg">Oxford<small>14:36 到达</small></span>
+        </div>
+        <div class="t-meta">
+          <span>车程约 3 小时</span>
+        </div>
+        <p class="day-desc">抵达后游览牛津</p>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>voco Oxford Spires</b>（1 晚）</div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d6" style="--dot:var(--c-ldn);--chip-bg:var(--c-ldn-bg)">
+      <div class="day-date"><span class="dnum">28</span><span class="dmonth">8 月</span><span class="dweek">周五</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 6</span>
+          <span class="city-chip">伦敦</span>
+          <span class="badge b-train"><svg><use href="#i-train"/></svg>火车</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <div class="transit">
+          <span class="leg">Oxford<small>15:01 发车</small></span>
+          <span class="t-arrow"><svg><use href="#i-arr"/></svg></span>
+          <span class="leg">London West Brompton<small>15:52 到达</small></span>
+        </div>
+        <div class="t-meta">
+          <span>车程约 1 小时</span>
+        </div>
+        <p class="day-desc">乘火车前往伦敦</p>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>The Rockwell</b></div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d7" style="--dot:var(--c-ldn);--chip-bg:var(--c-ldn-bg)">
+      <div class="day-date"><span class="dnum">29</span><span class="dmonth">8 月</span><span class="dweek">周六</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 7</span>
+          <span class="city-chip">伦敦</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <p class="day-desc">全天游览伦敦</p>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>The Rockwell</b></div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d8" style="--dot:var(--c-ldn);--chip-bg:var(--c-ldn-bg)">
+      <div class="day-date"><span class="dnum">30</span><span class="dmonth">8 月</span><span class="dweek">周日</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 8</span>
+          <span class="city-chip">伦敦</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <p class="day-desc">全天游览伦敦</p>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>The Rockwell</b></div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d9" style="--dot:var(--c-ldn);--chip-bg:var(--c-ldn-bg)">
+      <div class="day-date"><span class="dnum">31</span><span class="dmonth">8 月</span><span class="dweek">周一</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 9</span>
+          <span class="city-chip">伦敦</span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <p class="day-desc">全天游览伦敦</p>
+        <div class="day-stay"><svg><use href="#i-home"/></svg>住宿 · <b>The Rockwell</b></div>
+      </div>
+    </article>
+
+    <article class="day" data-key="d10" style="--dot:var(--c-man);--chip-bg:var(--c-man-bg)">
+      <div class="day-date"><span class="dnum">01</span><span class="dmonth">9 月</span><span class="dweek">周二</span></div>
+      <div class="day-rail"><span class="dot"></span></div>
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-tag">DAY 10</span>
+          <span class="city-chip">伦敦 → 回国</span>
+          <span class="badge b-fly"><svg><use href="#i-send"/></svg>希思罗 T2 · <b>20:25</b></span>
+          <button class="check" title="勾选这一天"><svg><use href="#i-check"/></svg></button>
+        </div>
+        <p class="day-desc">伦敦最后一天，随后前往希思罗机场</p>
+        <div class="transit">
+          <span class="leg">伦敦<small>最后一天</small></span>
+          <span class="t-arrow"><svg><use href="#i-arr"/></svg></span>
+          <span class="leg">希思罗机场<small>T2 航站楼</small></span>
+          <span class="t-arrow"><svg><use href="#i-arr"/></svg></span>
+          <span class="fly-time">20:25 ✈ 回中国</span>
+        </div>
+        <div class="day-stay"><svg><use href="#i-moon"/></svg>夜宿云端 · 睡一觉就到家了</div>
+      </div>
+    </article>
+
+  </section>
+  <p class="hint">点击每张卡片右侧的圆圈，可以勾掉已完成的行程</p>
+
+  <div class="sec-title"><h2>住宿一览</h2><small>Lodging</small></div>
+  <section class="lodging">
+    <div class="lodge-card">
+      <h3><span class="swatch" style="background:var(--c-man)"></span>曼彻斯特</h3>
+      <p>8.23 — 8.25 · 曼城中心智选假日酒店</p>
+      <div class="nn">2 <small>晚</small></div>
+    </div>
+    <div class="lodge-card">
+      <h3><span class="swatch" style="background:var(--c-liv)"></span>利物浦</h3>
+      <p>8.25 — 8.27 · The Halyard Liverpool</p>
+      <div class="nn">2 <small>晚</small></div>
+    </div>
+    <div class="lodge-card">
+      <h3><span class="swatch" style="background:var(--c-oxf)"></span>牛津</h3>
+      <p>8.27 — 8.28 · voco Oxford Spires</p>
+      <div class="nn">1 <small>晚</small></div>
+    </div>
+    <div class="lodge-card">
+      <h3><span class="swatch" style="background:var(--c-ldn)"></span>伦敦</h3>
+      <p>8.28 — 9.01 · The Rockwell</p>
+      <div class="nn">4 <small>晚</small></div>
+    </div>
+  </section>
+
+  <div class="sec-title"><h2>火车与航班</h2><small>Transport</small></div>
+  <div class="t-scroll">
+    <table class="t-table">
+      <tr><th>日期</th><th>区间</th><th>时间</th></tr>
+      <tr>
+        <td>8.23 周日</td>
+        <td class="route-cell"><b>Manchester Airport</b><span class="arr">→</span><b>Manchester Piccadilly</b>
+          <span class="note">入关后乘车；到站步行 6 分钟至酒店寄存行李</span></td>
+        <td class="tt">09:05 – 09:22</td>
+      </tr>
+      <tr>
+        <td>8.25 周二</td>
+        <td class="route-cell"><b>Manchester Piccadilly</b><span class="arr">→</span><b>Liverpool Lime Street</b>
+          <span class="note">车程约 1 小时；到站步行 13 分钟至酒店</span></td>
+        <td class="tt">12:54 – 13:53</td>
+      </tr>
+      <tr>
+        <td>8.27 周四</td>
+        <td class="route-cell"><b>Liverpool Lime Street</b><span class="arr">→</span><b>Oxford</b>
+          <span class="note">车程约 3 小时；抵达后游览牛津</span></td>
+        <td class="tt">11:33 – 14:36</td>
+      </tr>
+      <tr>
+        <td>8.28 周五</td>
+        <td class="route-cell"><b>Oxford</b><span class="arr">→</span><b>London West Brompton</b>
+          <span class="note">车程约 1 小时</span></td>
+        <td class="tt">15:01 – 15:52</td>
+      </tr>
+      <tr>
+        <td>9.01 周二</td>
+        <td class="route-cell"><b>伦敦市区</b><span class="arr">→</span><b>希思罗机场 T2</b>
+          <span class="note">从酒店出发前往机场，当晚飞回中国</span></td>
+        <td class="tt">20:25 起飞 ✈</td>
+      </tr>
+    </table>
+  </div>
+
+  <footer>
+    <div class="tricolor"></div>
+    英国十日 · 2026 年夏末<br>
+    <button id="reset">重置全部勾选</button>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var KEY = 'uk-trip-2026-done';
+  var days = document.querySelectorAll('.day');
+
+  function load() {
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+    days.forEach(function (d) {
+      if (saved[d.dataset.key]) d.classList.add('done');
+    });
+  }
+  function save() {
+    var state = {};
+    days.forEach(function (d) { if (d.classList.contains('done')) state[d.dataset.key] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  days.forEach(function (d) {
+    d.querySelector('.check').addEventListener('click', function () {
+      d.classList.toggle('done');
+      save();
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click', function () {
+    days.forEach(function (d) { d.classList.remove('done'); });
+    save();
+  });
+
+  // countdown / progress line
+  var el = document.getElementById('countdown');
+  var start = new Date(2026, 7, 23), end = new Date(2026, 8, 1);
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var DAY = 86400000;
+  if (today < start) {
+    el.textContent = '距离出发还有 ' + Math.round((start - today) / DAY) + ' 天';
+  } else if (today > end) {
+    el.textContent = '旅程已结束 · 好好休息';
+  } else {
+    el.textContent = '行程进行中 · 第 ' + (Math.round((today - start) / DAY) + 1) + ' 天';
+  }
+
+  load();
+})();
+</script>
+
+</body>
+</html>
