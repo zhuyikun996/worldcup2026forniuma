@@ -24,7 +24,14 @@ const DAYS = [
   {
     key: 'd2', day: 2, date: '24', month: '8 月', week: '周一',
     city: '曼彻斯特', color: 'var(--c-man)', chipBg: 'var(--c-man-bg)',
-    desc: '全天游览曼彻斯特',
+    badges: [{ icon: 'i-train', cls: 'b-train', text: '火车往返' }],
+    desc: '约克一日游：早上出发，傍晚返回曼彻斯特',
+    transit: [
+      { name: 'Manchester Piccadilly', sub: '09:00 发车' },
+      { name: 'York', sub: '约克一日游' },
+      { name: 'Manchester Piccadilly', sub: '18:58 返回' },
+    ],
+    meta: ['单程车程约 1 小时 20 分'],
     stay: '曼城中心智选假日酒店',
   },
   {
@@ -115,6 +122,7 @@ const LODGING = [
 
 const TRANSPORT = [
   { date: '8.23 周日', from: 'Manchester Airport', to: 'Manchester Piccadilly', time: '09:05 – 09:22', note: '入关后乘车；到站步行 6 分钟至酒店寄存行李' },
+  { date: '8.24 周一', from: 'Manchester Piccadilly', to: 'York', time: '09:00 去 / 18:58 返', note: '约克一日往返；单程车程约 1 小时 20 分' },
   { date: '8.25 周二', from: 'Manchester Piccadilly', to: 'Liverpool Lime Street', time: '12:54 – 13:53', note: '车程约 1 小时；到站步行 13 分钟至酒店' },
   { date: '8.27 周四', from: 'Liverpool Lime Street', to: 'Oxford', time: '11:33 – 14:36', note: '车程约 3 小时；抵达后游览牛津' },
   { date: '8.28 周五', from: 'Oxford', to: 'London West Brompton', time: '15:01 – 15:52', note: '车程约 1 小时' },
@@ -249,7 +257,7 @@ export default function Home() {
                 {d.transit && (
                   <div className="transit">
                     {d.transit.map((leg, i) => (
-                      <Fragment key={leg.name}>
+                      <Fragment key={`${leg.name}-${i}`}>
                         {i > 0 && (
                           <span className="t-arrow"><svg><use href="#i-arr" /></svg></span>
                         )}
